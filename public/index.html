@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BreakPoint - Innovative App Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #E5E7EB; /* text-gray-200 */
+            background: linear-gradient(90deg, #3b82f6, #2dd4bf);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Glassmorphism Effects */
+        .glass-header {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.7), rgba(45, 212, 191, 0.7)); /* Gradient with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-out;
+        }
+        .glass-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Navigation */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #ffffff; /* white */
+            font-weight: 700;
+        }
+
+
+        .btn-primary {
+            background-color: white;
+            color: #3b82f6; /* text-blue-500 */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Floating Animation for Hero Icon */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-icon {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Scroll-in animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Director Photo Animations */
+        .director-photo {
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Slower animation */
+        }
+        .director-1.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .director-1 {
+             transform: translateX(-50px);
+        }
+        .director-2.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .director-2 {
+            transform: translateX(50px);
+            transition-delay: 200ms;
+        }
+        
+        /* Section Separation Style */
+        .section-wrapper {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem; /* rounded-3xl */
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 glass-header z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-white">BreakPoint</a>
+            <div class="hidden md:flex items-center space-x-8 text-gray-200">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#process" class="nav-link">Process</a>
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#home" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link active">Home</a>
+            <a href="#about" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link">About</a>
+            <a href="#process" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link">Process</a>
+            <a href="#products" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link">Products</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+        <!-- Home Section -->
+        <section id="home" class="bg-transparent pt-24 md:pt-32">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0 reveal">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4">Changing the world, one app at a time.</h1>
+                    <p class="text-lg md:text-xl opacity-90 mb-8">We build elegant solutions to complex problems.</p>
+                    <a href="#products" class="btn-primary font-bold py-3 px-8 rounded-full inline-block">
+                        Learn More
+                    </a>
+                </div>
+                <div class="lg:w-1/2 flex justify-center reveal">
+                    <div class="bg-white/10 p-8 rounded-3xl shadow-2xl w-64 floating-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-white" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4">
+                            <circle cx="100" cy="100" r="12" />
+                            <path d="M100 88 V 40" />
+                            <path d="M100 112 V 160" />
+                            <path d="M112 100 H 160" />
+                            <path d="M88 100 H 40" />
+                            <circle cx="40" cy="100" r="8" />
+                            <circle cx="160" cy="100" r="8" />
+                            <circle cx="100" cy="40" r="8" />
+                            <circle cx="100" cy="160" r="8" />
+                            <path d="M125.35 74.65 L 150 50" />
+                            <path d="M74.65 125.35 L 50 150" />
+                            <path d="M125.35 125.35 L 150 150" />
+                            <path d="M74.65 74.65 L 50 50" />
+                            <circle cx="50" cy="50" r="6" />
+                            <circle cx="150" cy="50" r="6" />
+                            <circle cx="50" cy="150" r="6" />
+                            <circle cx="150" cy="150" r="6" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 md:py-32 bg-transparent">
+            <div class="section-wrapper">
+                 <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center p-8 md:p-12">
+                    <div class="reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Company Story</h2>
+                        <p class="text-gray-200 leading-relaxed">
+                           We created BreakPoint to solve these real-world problems, bringing our combined 9 years of software experience in data science and development. It's our answer—a company founded on the principle of solving complex challenges with smart, user-centric solutions that we wished we'd had ourselves.
+                        </p>
+                    </div>
+                    <div class="flex justify-center md:justify-start space-x-4 reveal">
+                        <!-- Director Photos with Fallbacks -->
+                        <div class="relative director-photo director-1 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
+                            <img src="assets/a.jpg" 
+                                 onerror="this.onerror=null;this.src='https://placehold.co/240x300/2dd4bf/FFFFFF?text=Director+1';" 
+                                 alt="Director 1" 
+                                 class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                        </div>
+                        <div class="relative mt-8 director-photo director-2 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
+                            <img src="assets/b.jpg"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/240x300/3b82f6/FFFFFF?text=Director+2';" 
+                                 alt="Director 2" 
+                                 class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Process Section -->
+        <section id="process" class="py-20 md:py-32 bg-transparent">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
+                    <div class="reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Process</h2>
+                        <p class="text-white/80 max-w-2xl mx-auto mb-16">A streamlined workflow to take your idea from concept to reality.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Step 1 -->
+                        <div class="reveal">
+                            <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                <span class="text-3xl font-bold">1</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Discover</h3>
+                            <p class="opacity-90">We start by understanding your vision, goals, and target audience.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="reveal" style="transition-delay: 150ms;">
+                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                <span class="text-3xl font-bold">2</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Design</h3>
+                            <p class="opacity-90">We create intuitive UI/UX designs and prototypes for a seamless user experience.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="reveal" style="transition-delay: 300ms;">
+                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                <span class="text-3xl font-bold">3</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Develop</h3>
+                            <p class="opacity-90">Our expert developers bring the designs to life with clean, efficient code.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="reveal" style="transition-delay: 450ms;">
+                            <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                <span class="text-3xl font-bold">4</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Deploy</h3>
+                            <p class="opacity-90">We handle the launch, ensuring your app is ready for the world.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-20 md:py-32 bg-transparent">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
+                    <div class="reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Products</h2>
+                        <p class="text-white/80 max-w-2xl mx-auto mb-16">We provide end-to-end services to bring your digital product to life.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <!-- Product Card 1 -->
+                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left">
+                            <h3 class="text-2xl font-bold mb-2">Conv.AI</h3>
+                            <p class="opacity-90 mb-4">A plug-and-play chatbot for anyone. Automate customer interactions and boost engagement 24/7.</p>
+                            <ul class="space-y-2 text-sm opacity-80">
+                                <li>- Easy Integration</li>
+                                <li>- 24/7 Customer Support</li>
+                                <li>- AI-Powered Conversations</li>
+                            </ul>
+                        </div>
+                        <!-- Product Card 2 -->
+                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left" style="transition-delay: 150ms;">
+                            <h3 class="text-2xl font-bold mb-2">LIFEINIT</h3>
+                            <p class="opacity-90 mb-4">Bring all your important documents together. Securely share and manage access with your family, anytime, anywhere.</p>
+                             <ul class="space-y-2 text-sm opacity-80">
+                                <li>- Secure Cloud Storage</li>
+                                <li>- Family Sharing & Permissions</li>
+                                <li>- Cross-Device Sync</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 md:py-32 bg-transparent">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
+                    <div class="reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What Our Clients Say</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">
+                         <div class="glass-card text-white p-8 rounded-2xl reveal text-left">
+                            <p class="mb-4">"Working with BreakPoint was a game-changer. Their team is professional, creative, and delivered a product that exceeded our expectations."</p>
+                            <p class="font-bold">- Jane Doe, CEO of Innovate Co.</p>
+                        </div>
+                         <div class="glass-card text-white p-8 rounded-2xl reveal text-left" style="transition-delay: 150ms;">
+                            <p class="mb-4">"The Conv.AI chatbot has revolutionized our customer support. It's smart, fast, and our users love it."</p>
+                            <p class="font-bold">- John Smith, Founder of Tech Startup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section id="quote" class="py-20 md:py-24 bg-transparent">
+            <div class="max-w-7xl mx-auto text-center">
+                <p class="text-2xl md:text-3xl font-medium max-w-4xl mx-auto reveal">
+                    "Technology isn't about the latest gadgets or apps. It's about what these things do for people. It's about bringing people together and making lives better."
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 bg-transparent">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto p-8 md:p-12">
+                    <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">Connect with Us</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12 text-gray-200 reveal">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="font-bold text-lg text-white mb-1">Mailing Address</h3>
+                                <p>123 Anywhere St, Any City, State, Country 123456</p>
+                            </div>
+                             <div>
+                                <h3 class="font-bold text-lg text-white mb-1">Email Address</h3>
+                                <p>breakpointsolutions911@gmail.com</p>
+                            </div>
+                             <div>
+                                <h3 class="font-bold text-lg text-white mb-1">Phone Number</h3>
+                                <p>+91 94964 96275, +91 82968 89828</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                             <div>
+                                <h3 class="font-bold text-lg text-white mb-1">Follow Us</h3>
+                                <div class="flex space-x-4">
+                                   <a href="#" class="hover:text-white">Twitter</a>
+                                   <a href="#" class="hover:text-white">Facebook</a>
+                                   <a href="#" class="hover:text-white">Instagram</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-transparent border-t border-white/10">
+        <div class="container mx-auto py-6 px-6 text-center text-gray-300">
+            <p>&copy; 2024 BreakPoint. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Single Page Navigation & Active Link ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section'); // Target sections inside main
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const setActiveLink = (id) => {
+                // Update nav links in both desktop and mobile menus
+                document.querySelectorAll('.nav-link').forEach(link => {
+                     link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Scroll Animations ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const revealElements = entry.target.querySelectorAll('.reveal, .director-photo');
+                        revealElements.forEach(el => el.classList.add('visible'));
+                        setActiveLink('#' + entry.target.id);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                // We observe the section itself to trigger animations within it
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
