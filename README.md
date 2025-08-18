@@ -44,11 +44,11 @@ You need a web browser to view the website. No additional software is required t
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/your-repository-name.git](https://github.com/your-username/your-repository-name.git)
+    git clone https://github.com/breakpoint911/breakpoint_webapp.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
-    cd your-repository-name
+    cd breakpoint_webapp
     ```
 3.  **Open `index.html`:**
     Simply open the `index.html` file in your preferred web browser to view the site.
@@ -60,8 +60,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Contact
 
 - **Email:** breakpointsolutions911@gmail.com
-- **Phone:** +91 94964 96275
-- **Project Link:** `https://github.com/your-username/your-repository-name`
 
 ---
 
