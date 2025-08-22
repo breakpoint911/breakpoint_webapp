@@ -18,7 +18,7 @@
         html {
             scroll-behavior: smooth;
         }
-        
+
         /* Glassmorphism Effects */
         .glass-header {
             background: linear-gradient(90deg, rgba(59, 130, 246, 0.7), rgba(45, 212, 191, 0.7)); /* Gradient with opacity */
@@ -26,7 +26,7 @@
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .glass-card {
             background-color: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -77,7 +77,7 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Floating Animation for Hero Icon */
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -98,7 +98,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         /* Director Photo Animations */
         .director-photo {
             opacity: 0;
@@ -119,7 +119,7 @@
             transform: translateX(50px);
             transition-delay: 200ms;
         }
-        
+
         /* Section Separation Style */
         .section-wrapper {
             background-color: rgba(255, 255, 255, 0.05);
@@ -127,11 +127,84 @@
             margin-top: 2rem;
             margin-bottom: 2rem;
         }
+
+        .case-study-section {
+            display: none;
+            padding-top: 8rem;
+        }
+
+        .case-study-section.active {
+            display: block;
+        }
+
+        .case-study-image-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .case-study-image-container img {
+            max-width: 120%;
+            max-height: 200px; /* Sets the maximum height */
+            height: auto; /* Allows the height to be flexible */
+        }
+
+        .case-study-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* New Styles for Case Study layout */
+        .case-study-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .case-study-item:not(:last-of-type)::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -2rem;
+            width: 1px;
+            height: 2rem;
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: translateX(-50%);
+            border-left: 2px dotted rgba(255, 255, 255, 0.4);
+        }
+
+        .case-study-item.reversed {
+            direction: rtl;
+        }
+        .case-study-item.reversed > * {
+            direction: ltr;
+        }
+
+        /* Mobile adjustments for the new layout */
+        @media (max-width: 768px) {
+            .case-study-item, .case-study-item.reversed {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .case-study-item:not(:last-of-type)::after {
+                left: 50%;
+                width: 1px;
+            }
+            .case-study-image-container {
+                order: -1;
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body class="text-white">
 
-    <!-- Header -->
     <header class="sticky top-0 glass-header z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-bold text-white">BreakPoint</a>
@@ -146,7 +219,6 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
-        <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <a href="#home" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link active">Home</a>
             <a href="#about" class="block py-2 px-4 text-sm text-gray-200 hover:bg-white/10 nav-link">About</a>
@@ -157,7 +229,6 @@
     </header>
 
     <main class="container mx-auto px-6">
-        <!-- Home Section -->
         <section id="home" class="bg-transparent pt-24 md:pt-32">
             <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
                 <div class="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0 reveal">
@@ -193,36 +264,33 @@
             </div>
         </section>
 
-        <!-- About Us Section -->
         <section id="about" class="py-20 md:py-32 bg-transparent">
             <div class="section-wrapper">
-                 <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center p-8 md:p-12">
-                    <div class="reveal">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Company Story</h2>
-                        <p class="text-gray-200 leading-relaxed">
-                           We created BreakPoint to solve these real-world problems, bringing our combined 9 years of software experience in data science and development. It's our answer—a company founded on the principle of solving complex challenges with smart, user-centric solutions that we wished we'd had ourselves.
-                        </p>
-                    </div>
-                    <div class="flex justify-center md:justify-start space-x-4 reveal">
-                        <!-- Director Photos with Fallbacks -->
-                        <div class="relative director-photo director-1 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
-                            <img src="assets/a.jpg" 
-                                 onerror="this.onerror=null;this.src='https://placehold.co/240x300/2dd4bf/FFFFFF?text=Director+1';" 
-                                 alt="Director 1" 
-                                 class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center p-8 md:p-12">
+                        <div class="reveal">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Company Story</h2>
+                            <p class="text-gray-200 leading-relaxed">
+                                We created BreakPoint to solve these real-world problems, bringing our combined 9 years of software experience in data science and development. It's our answer—a company founded on the principle of solving complex challenges with smart, user-centric solutions that we wished we'd had ourselves.
+                            </p>
                         </div>
-                        <div class="relative mt-8 director-photo director-2 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
-                            <img src="assets/b.jpg"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/240x300/3b82f6/FFFFFF?text=Director+2';" 
-                                 alt="Director 2" 
-                                 class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                        <div class="flex justify-center md:justify-start space-x-4 reveal">
+                            <div class="relative director-photo director-1 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
+                                <img src="assets/a.jpg"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/240x300/2dd4bf/FFFFFF?text=Director+1';"
+                                        alt="Director 1"
+                                        class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                            </div>
+                            <div class="relative mt-8 director-photo director-2 p-2 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
+                                <img src="assets/b.jpg"
+                                        onerror="this.onerror=null;this.src='https://placehold.co/240x300/3b82f6/FFFFFF?text=Director+2';"
+                                        alt="Director 2"
+                                        class="rounded-xl shadow-lg w-full max-w-[240px] h-auto object-cover">
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </section>
 
-        <!-- Our Process Section -->
         <section id="process" class="py-20 md:py-32 bg-transparent">
             <div class="section-wrapper">
                 <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
@@ -231,7 +299,6 @@
                         <p class="text-white/80 max-w-2xl mx-auto mb-16">A streamlined workflow to take your idea from concept to reality.</p>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Step 1 -->
                         <div class="reveal">
                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
                                 <span class="text-3xl font-bold">1</span>
@@ -239,23 +306,20 @@
                             <h3 class="text-xl font-bold mb-2">Discover</h3>
                             <p class="opacity-90">We start by understanding your vision, goals, and target audience.</p>
                         </div>
-                        <!-- Step 2 -->
                         <div class="reveal" style="transition-delay: 150ms;">
-                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
-                                <span class="text-3xl font-bold">2</span>
+                               <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                   <span class="text-3xl font-bold">2</span>
                             </div>
                             <h3 class="text-xl font-bold mb-2">Design</h3>
                             <p class="opacity-90">We create intuitive UI/UX designs and prototypes for a seamless user experience.</p>
                         </div>
-                        <!-- Step 3 -->
                         <div class="reveal" style="transition-delay: 300ms;">
-                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
-                                <span class="text-3xl font-bold">3</span>
+                               <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
+                                   <span class="text-3xl font-bold">3</span>
                             </div>
                             <h3 class="text-xl font-bold mb-2">Develop</h3>
                             <p class="opacity-90">Our expert developers bring the designs to life with clean, efficient code.</p>
                         </div>
-                        <!-- Step 4 -->
                         <div class="reveal" style="transition-delay: 450ms;">
                             <div class="p-6 bg-white/10 rounded-full w-24 h-24 mx-auto flex items-center justify-center mb-4 border-2 border-white/20">
                                 <span class="text-3xl font-bold">4</span>
@@ -268,41 +332,157 @@
             </div>
         </section>
 
-        <!-- Products Section -->
         <section id="products" class="py-20 md:py-32 bg-transparent">
             <div class="section-wrapper">
                 <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
                     <div class="reveal">
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Products</h2>
-                        <p class="text-white/80 max-w-2xl mx-auto mb-16">We provide end-to-end services to bring your digital product to life.</p>
+                        <p class="text-white/80 max-w-2xl mx-auto mb-16">Explore our innovative app solutions designed to make a difference.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <!-- Product Card 1 -->
-                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left">
+                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left cursor-pointer product-card" data-product="convai">
                             <h3 class="text-2xl font-bold mb-2">Conv.AI</h3>
-                            <p class="opacity-90 mb-4">A plug-and-play chatbot for anyone. Automate customer interactions and boost engagement 24/7.</p>
+                            <p class="opacity-90 mb-4">Meet your new AI-powered assistant. Revolutionize customer interactions and engagement.</p>
                             <ul class="space-y-2 text-sm opacity-80">
-                                <li>- Easy Integration</li>
-                                <li>- 24/7 Customer Support</li>
-                                <li>- AI-Powered Conversations</li>
+                                <li>- Instant Support</li>
+                                <li>- 24/7 Availability</li>
+                                <li>- Seamless Integration</li>
                             </ul>
+                            <button class="mt-4 text-blue-300 hover:text-blue-400 focus:outline-none">Learn more &rarr;</button>
                         </div>
-                        <!-- Product Card 2 -->
-                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left" style="transition-delay: 150ms;">
+                        <div class="glass-card text-white p-8 rounded-2xl reveal text-left cursor-pointer product-card" style="transition-delay: 150ms;" data-product="lifeinit">
                             <h3 class="text-2xl font-bold mb-2">LIFEINIT</h3>
-                            <p class="opacity-90 mb-4">Bring all your important documents together. Securely share and manage access with your family, anytime, anywhere.</p>
+                            <p class="opacity-90 mb-4">Keep your family connected and prepared. Securely manage and share vital documents.</p>
                              <ul class="space-y-2 text-sm opacity-80">
-                                <li>- Secure Cloud Storage</li>
-                                <li>- Family Sharing & Permissions</li>
-                                <li>- Cross-Device Sync</li>
+                                <li>- Secure Document Vault</li>
+                                <li>- Family Access Control</li>
+                                <li>- Peace of Mind</li>
                             </ul>
+                            <button class="mt-4 text-blue-300 hover:text-blue-400 focus:outline-none">Learn more &rarr;</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Testimonials Section -->
+
+        <section id="case-study-convai" class="case-study-section bg-transparent py-20 md:py-32">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto p-8 md:p-12">
+                    <button onclick="hideCaseStudy()" class="text-white/80 hover:text-white mb-8">&larr; Back to Products</button>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 text-center">The Story of Conv.AI: Empowering Every Interaction</h2>
+
+                    <div class="case-study-item">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                Imagine Sarah, a passionate owner of a small online boutique. She poured her heart into curating unique items, but as her business grew, so did the influx of customer inquiries – questions about sizing, shipping, returns, and more. Sarah found herself spending countless hours answering the same questions, time she desperately needed to focus on sourcing new products and marketing her store.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/5.png" alt="Illustration: Sarah overwhelmed by customer messages" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reversed">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                One sleepless night, while searching for a solution, Sarah stumbled upon the idea of AI-powered chatbots. But the options she found were either too complex, too expensive, or required extensive technical knowledge. That's when the seed for Conv.AI was planted in our minds at BreakPoint. We envisioned a chatbot that was as easy to use as sending an email, yet powerful enough to handle a wide range of customer interactions.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/6.png" alt="Illustration: The BreakPoint team brainstorming the concept of Conv.AI" class="case-study-image">
+                        </div>
+                    </div>
+                    
+                    <div class="case-study-item">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                Our team embarked on a journey to create just that. We focused on simplicity – a plug-and-play solution that anyone could integrate into their website without writing a single line of code. We designed an intuitive interface where users like Sarah could easily train the chatbot with their existing knowledge.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/7.png" alt="Illustration: A simplified Conv.AI interface showing easy training" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reversed">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                Today, Sarah's boutique utilizes Conv.AI to handle over 80% of her customer inquiries instantly. She's reclaimed valuable time, her customers receive immediate support, and her satisfaction rates have soared. Conv.AI isn't just a chatbot; it's Sarah's 24/7 virtual assistant, enabling her to focus on what she loves most – growing her business.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/8.png" alt="Illustration: Sarah happily working on her business, with Conv.AI handling customer queries in the background" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <h3 class="text-2xl font-bold text-white mb-4">Ready to empower your interactions?</h3>
+                        <p class="text-white/80 leading-relaxed mb-8">Conv.AI can be your always-on support hero. Integrate it today and see the difference.</p>
+                        <button onclick="hideCaseStudy()" class="btn-primary font-bold py-3 px-8 rounded-full inline-block">Back to Products</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="case-study-lifeinit" class="case-study-section bg-transparent py-20 md:py-32">
+            <div class="section-wrapper">
+                <div class="max-w-7xl mx-auto p-8 md:p-12">
+                    <button onclick="hideCaseStudy()" class="text-white/80 hover:text-white mb-8">&larr; Back to Products</button>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 text-center">The Story of LIFEINIT: Connecting Families When It Matters Most</h2>
+
+                    <div class="case-study-item">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                Meet the Johnsons, a close-knit family spread across different cities. They cherished their time together but often worried about unforeseen circumstances. Mr. Johnson had meticulously organized all their important documents – insurance policies, wills, medical records – but they were scattered in different physical locations, known only to him.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/1.png" alt="Illustration of a family looking worried, surrounded by documents" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reversed">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                One evening, during a family call, the topic of emergency preparedness came up. The children expressed their concern about accessing vital information if something were to happen to their parents. This heartfelt conversation sparked an idea at BreakPoint: a secure digital vault that could bring families together through shared access to essential documents.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/2.png" alt="Illustration of a team sketching out features on a whiteboard" class="case-study-image">
+                        </div>
+                    </div>
+                    
+                    <div class="case-study-item">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                We set out to build LIFEINIT with a focus on security and ease of use. We envisioned a platform where families could securely upload, organize, and share important documents with different levels of access. The goal was to ensure that in times of need, every family member could easily find the information they required, regardless of their location.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/3.png" alt="Illustration of a secure LIFEINIT interface" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="case-study-item reversed">
+                        <div class="text-white/80 leading-relaxed mb-6">
+                            <p>
+                                Today, the Johnsons use LIFEINIT to store all their crucial documents. Their children have secure access to the information they might need in an emergency, providing everyone with immense peace of mind. LIFEINIT has become their central hub for important family information, bridging the geographical gap and ensuring they are always connected and prepared for life's unexpected moments.
+                            </p>
+                        </div>
+                        <div class="case-study-image-container">
+                            <img src="assets/4.png" alt="Illustration: The Johnson family feeling secure and connected, looking at the LIFEINIT app on their devices" class="case-study-image">
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <h3 class="text-2xl font-bold text-white mb-4">Ready to connect and prepare your family?</h3>
+                        <p class="text-white/80 leading-relaxed mb-8">LIFEINIT can be your family's secure digital lifeline. Start protecting what matters most today.</p>
+                        <button onclick="hideCaseStudy()" class="btn-primary font-bold py-3 px-8 rounded-full inline-block">Back to Products</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="testimonials" class="py-20 md:py-32 bg-transparent">
             <div class="section-wrapper">
                 <div class="max-w-7xl mx-auto text-center p-8 md:p-12">
@@ -310,20 +490,19 @@
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What Our Clients Say</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12">
-                         <div class="glass-card text-white p-8 rounded-2xl reveal text-left">
-                            <p class="mb-4">"Working with BreakPoint was a game-changer. Their team is professional, creative, and delivered a product that exceeded our expectations."</p>
-                            <p class="font-bold">- Jane Doe, CEO of Innovate Co.</p>
-                        </div>
-                         <div class="glass-card text-white p-8 rounded-2xl reveal text-left" style="transition-delay: 150ms;">
-                            <p class="mb-4">"The Conv.AI chatbot has revolutionized our customer support. It's smart, fast, and our users love it."</p>
-                            <p class="font-bold">- John Smith, Founder of Tech Startup</p>
-                        </div>
+                            <div class="glass-card text-white p-8 rounded-2xl reveal text-left">
+                                <p class="mb-4">"Working with BreakPoint was a game-changer. Their team is professional, creative, and delivered a product that exceeded our expectations."</p>
+                                <p class="font-bold">- Jane Doe, CEO of Innovate Co.</p>
+                            </div>
+                            <div class="glass-card text-white p-8 rounded-2xl reveal text-left" style="transition-delay: 150ms;">
+                                <p class="mb-4">"The Conv.AI chatbot has revolutionized our customer support. It's smart, fast, and our users love it."</p>
+                                <p class="font-bold">- John Smith, Founder of Tech Startup</p>
+                            </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quote Section -->
         <section id="quote" class="py-20 md:py-24 bg-transparent">
             <div class="max-w-7xl mx-auto text-center">
                 <p class="text-2xl md:text-3xl font-medium max-w-4xl mx-auto reveal">
@@ -332,12 +511,14 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 bg-transparent">
             <div class="section-wrapper">
                 <div class="max-w-7xl mx-auto p-8 md:p-12">
                     <div class="text-center mb-12 reveal">
                         <h2 class="text-3xl md:text-4xl font-bold text-white">Connect with Us</h2>
+                        <p class="text-white/80 max-w-xl mx-auto mt-4">
+                            Have a business idea or a complex problem to solve? Don't hesitate to reach out! We are here to help you develop your projects and turn your vision into a reality.
+                        </p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-12 text-gray-200 reveal">
                         <div class="space-y-6">
@@ -345,22 +526,22 @@
                                 <h3 class="font-bold text-lg text-white mb-1">Mailing Address</h3>
                                 <p>123 Anywhere St, Any City, State, Country 123456</p>
                             </div>
-                             <div>
+                            <div>
                                 <h3 class="font-bold text-lg text-white mb-1">Email Address</h3>
                                 <p>breakpointsolutions911@gmail.com</p>
                             </div>
-                             <div>
+                            <div>
                                 <h3 class="font-bold text-lg text-white mb-1">Phone Number</h3>
                                 <p>+91 94964 96275, +91 82968 89828</p>
                             </div>
                         </div>
                         <div class="space-y-6">
-                             <div>
+                            <div>
                                 <h3 class="font-bold text-lg text-white mb-1">Follow Us</h3>
                                 <div class="flex space-x-4">
-                                   <a href="#" class="hover:text-white">Twitter</a>
-                                   <a href="#" class="hover:text-white">Facebook</a>
-                                   <a href="#" class="hover:text-white">Instagram</a>
+                                       <a href="#" class="hover:text-white">Twitter</a>
+                                       <a href="#" class="hover:text-white">Facebook</a>
+                                       <a href="#" class="hover:text-white">Instagram</a>
                                 </div>
                             </div>
                         </div>
@@ -380,15 +561,31 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- Single Page Navigation & Active Link ---
             const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('main section'); // Target sections inside main
+            const sections = document.querySelectorAll('main section:not(.case-study-section)');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const productCards = document.querySelectorAll('.product-card');
+            const mainContentSections = document.querySelectorAll('#home, #about, #process, #products, #testimonials, #quote, #contact');
+            const caseStudySections = document.querySelectorAll('.case-study-section');
 
             const setActiveLink = (id) => {
-                // Update nav links in both desktop and mobile menus
                 document.querySelectorAll('.nav-link').forEach(link => {
-                     link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
                 });
+            };
+
+            const showCaseStudy = (productId) => {
+                mainContentSections.forEach(section => section.style.display = 'none');
+                caseStudySections.forEach(section => section.classList.remove('active'));
+                document.getElementById(`case-study-${productId}`).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.hideCaseStudy = () => {
+                caseStudySections.forEach(section => section.classList.remove('active'));
+                mainContentSections.forEach(section => section.style.display = 'block');
+                const productsSection = document.getElementById('products');
+                productsSection.scrollIntoView({ behavior: 'smooth' });
             };
 
             navLinks.forEach(link => {
@@ -397,6 +594,8 @@
                     const targetId = link.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
+                        mainContentSections.forEach(section => section.style.display = 'block');
+                        caseStudySections.forEach(section => section.classList.remove('active'));
                         targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                     if (!mobileMenu.classList.contains('hidden')) {
@@ -404,6 +603,14 @@
                     }
                 });
             });
+
+            productCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const productId = card.getAttribute('data-product');
+                    showCaseStudy(productId);
+                });
+            });
+
 
             // --- Mobile Menu Toggle ---
             mobileMenuButton.addEventListener('click', () => {
@@ -422,13 +629,12 @@
                     if (entry.isIntersecting) {
                         const revealElements = entry.target.querySelectorAll('.reveal, .director-photo');
                         revealElements.forEach(el => el.classList.add('visible'));
-                        setActiveLink('#' + entry.target.id);
+                        setActiveLink(entry.target.id);
                     }
                 });
             }, observerOptions);
 
             sections.forEach(section => {
-                // We observe the section itself to trigger animations within it
                 observer.observe(section);
             });
         });
